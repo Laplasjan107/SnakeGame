@@ -13,11 +13,11 @@ set_property(GLOBAL PROPERTY RULE_MESSAGES OFF)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # Set compilation flags.
-set(CMAKE_C_FLAGS "-std=c11 -Wall -Wextra")
+set(CMAKE_C_FLAGS "-Wall -Wextra")
 
 # Source files path.
 set(SOURCE_FILES
-    snake.c
+    snake.cpp
     )
 
 # Wskazujemy plik wykonywalny.
