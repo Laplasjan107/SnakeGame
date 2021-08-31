@@ -2,11 +2,13 @@
 #include <queue>
 #include <ncurses.h>
 #include <set>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
 //Liczba znaków zajmowanych na ekranie przez jedno pole.
-#define EL_WIDTH 3
+#define EL_WIDTH 2
 
 #define COLUMNS 20
 #define ROWS 20
@@ -18,18 +20,25 @@ using namespace std;
 
 #define NUMBER_OF_DIRECTIONS 4
 
+bool endOfTheGame = false;
+
+
 enum Direction {
     Up, Right, Down, Left
 };
 
 class Board;
+
 class Coordinates;
+
 void print_element(Board *board, Coordinates c, char k);
 
 class Coordinates {
 public:
     int x; // row
     int y; // column
+
+    Coordinates() : x(0), y(0) {}
 
     Coordinates(int x, int y) : x(x), y(y) {}
 
@@ -45,14 +54,35 @@ public:
     deque <Coordinates> body;
     Direction direction;
     int foodCounter;
+    const char left;
+    const char right;
 
-    Snake(Coordinates boardSize) : head(rand() % boardSize.x, rand() % boardSize.y) {
+    // Zakładam, że wielkość planszy to minimum 3.
+    Snake(Coordinates boardSize, char left = 'a', char right = 'd') : head(1 + rand() % (boardSize.x - 2),
+                                                                           1 + rand() % (boardSize.y - 2)), left(left),
+                                                                      right(right) {
         //head = Coordinates (rand() % boardSize.x, rand() % boardSize.y);
         body = deque<Coordinates>();
         direction = (Direction) (rand() % NUMBER_OF_DIRECTIONS);
+        Coordinates neck;
+        switch (direction) {
+            case Up:
+                neck = Coordinates(head.x, head.y - 1);
+                break;
+            case Right:
+                neck = Coordinates(head.x - 1, head.y);
+                break;
+            case Down:
+                neck = Coordinates(head.x, head.y + 1);
+                break;
+            case Left:
+                neck = Coordinates(head.x + 1, head.y);
+                break;
+        }
+        body.push_front(neck);
     }
 
-    void print(  Board *board) {
+    void print(Board *board) {
         print_element(board, head, SNAKE_HEAD);
         for (auto el : body) {
             print_element(board, el, SNAKE_BODY);
@@ -69,7 +99,7 @@ public:
         foods.insert(Coordinates(rand() % boardSize.x, rand() % boardSize.y));
     }
 
-    void print( Board *board) {
+    void print(Board *board) {
         for (auto el: foods) {
             print_element(board, el, FOOD);
         }
@@ -138,15 +168,44 @@ void winning() {
 }
 
 //Zczytuje ruch gracza i go zwraca
-int read_move() {
+inline char read_move() {
     return getch();
+}
+
+//
+void change_direction(Snake snake) {
+    char mv = read_move();
+    if (mv == snake.left) {
+        return;
+    } else if (mv == snake.right) {
+        return;
+    } else {
+
+        endOfTheGame = true;
+    }
+}
+
+void move(Board &board) {
+
+}
+
+
+void game(Board &board) {
+    while (!endOfTheGame) {
+
+       this_thread::sleep_for(std::chrono::seconds(1));
+        change_direction(board.snake);
+    }
+
 }
 
 //inicjuje interfejs TUI i wlacza wyswietlanie planszy na poczatku
 void interface_ini(Board *board) {
+
     initscr();  //wlacza TUI
     noecho();
     curs_set(0);
+    nodelay(stdscr, TRUE);
     board->print();
     cbreak(); // wlacza czekanie
 }
@@ -156,7 +215,7 @@ int main() {
     srand(time(0));
     Board board(ROWS, COLUMNS);
     interface_ini(&board);
-    read_move();
+    game(board);
     endwin();
 
     // Wypisanie_planszy(&a);
