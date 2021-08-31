@@ -22,38 +22,98 @@ enum Direction {
     Up, Right, Down, Left
 };
 
-struct Coordinates {
+class Board;
+class Coordinates;
+void print_element(Board *board, Coordinates c, char k);
 
+class Coordinates {
+public:
     int x; // row
     int y; // column
-     bool operator< ( const Coordinates &compared) const
-    {
-        if(x==compared.x) return y<compared.y;
-        return x<compared.x;
+
+    Coordinates(int x, int y) : x(x), y(y) {}
+
+    bool operator<(const Coordinates &compared) const {
+        if (x == compared.x) return y < compared.y;
+        return x < compared.x;
     }
 } typedef Coordinates;
 
-struct Snake {
+class Snake {
+public:
     Coordinates head;
     deque <Coordinates> body;
     Direction direction;
     int foodCounter;
-} typedef Snake;
 
-struct Food {
-     set <Coordinates> foods;
-} typedef Food;
+    Snake(Coordinates boardSize) : head(rand() % boardSize.x, rand() % boardSize.y) {
+        //head = Coordinates (rand() % boardSize.x, rand() % boardSize.y);
+        body = deque<Coordinates>();
+        direction = (Direction) (rand() % NUMBER_OF_DIRECTIONS);
+    }
 
-struct Board {
+    void print(  Board *board) {
+        print_element(board, head, SNAKE_HEAD);
+        for (auto el : body) {
+            print_element(board, el, SNAKE_BODY);
+        }
+    }
+};
+
+class Food {
+public:
+    set <Coordinates> foods;
+
+    Food(Coordinates boardSize) {
+        foods = set<Coordinates>();
+        foods.insert(Coordinates(rand() % boardSize.x, rand() % boardSize.y));
+    }
+
+    void print( Board *board) {
+        for (auto el: foods) {
+            print_element(board, el, FOOD);
+        }
+    }
+};
+
+class Board {
+public:
     Snake snake;
     Food food;
     Coordinates size;
-}typedef Board;
+
+    Board(int rows, int columns) : size(rows, columns), snake(Coordinates(rows, columns)),
+                                   food(Coordinates(rows, columns)) {
+    }
+
+    //wyswietla cala plansze na poczatku gry
+    //przyjmuje jako argument plansze
+    void print() {
+        for (int i = 0; i < size.x; i++) {
+            print_element(this, Coordinates(i, -1), '-');
+            print_element(this, Coordinates(i, size.x), '-');
+        }
+
+        for (int i = 0; i < size.y; i++) {
+            print_element(this, Coordinates(-1, i), '|');
+            print_element(this, Coordinates(size.y, i), '|');
+        }
+
+        print_element(this, Coordinates(-1, -1), '+');
+        print_element(this, Coordinates(-1, size.y), '+');
+        print_element(this, Coordinates(size.x, -1), '+');
+        print_element(this, Coordinates(size.x, size.y), '+');
+
+        snake.print(this);
+        food.print(this);
+        refresh();
+    }
+};
 
 
 //prints how much snake has eaten
-void print_food_counter(Snake * snake) {
-    mvprintw(0, 0, "%*d", 2, snake->foodCounter);
+void print_food_counter(Snake &snake) {
+    mvprintw(0, 0, "%*d", 2, snake.foodCounter);
 }
 
 //odpowiada za wyswietlanie każdego pojedynczego pola
@@ -67,44 +127,8 @@ void print_element(Board *board, Coordinates c, char k) {
 }
 
 
-void print_snake(Board *board,Snake snake) {
-    print_element(board, snake.head, SNAKE_HEAD);
-    for (auto a : snake.body) {
-        print_element(board, a, SNAKE_BODY);
-    }
-}
-
-void print_food(Board*board,Food food){
-    for(auto a : food.foods){
-        print_element(board,a,FOOD);
-    }
-}
-
 void update_print_snake(Board *board) {
 
-}
-
-//wyswietla cala plansze na poczatku gry
-//przyjmuje jako argument plansze
-void print_board(Board *board) {
-    for (int i = 0; i < board->size.x; i++) {
-        print_element(board, (Coordinates) {i, -1}, '-');
-        print_element(board, (Coordinates) {i, board->size.x}, '-');
-    }
-
-    for (int i = 0; i < board->size.y; i++) {
-        print_element(board, (Coordinates) {-1, i}, '|');
-        print_element(board, (Coordinates) {board->size.y, i}, '|');
-    }
-
-    print_element(board, (Coordinates) {-1, -1}, '+');
-    print_element(board, (Coordinates) {-1, board->size.y}, '+');
-    print_element(board, (Coordinates) {board->size.x, -1}, '+');
-    print_element(board, (Coordinates) {board->size.x, board->size.y}, '+');
-
-    print_snake(board,board->snake);
-    print_food(board,board->food);
-    refresh();
 }
 
 
@@ -123,36 +147,18 @@ void interface_ini(Board *board) {
     initscr();  //wlacza TUI
     noecho();
     curs_set(0);
-    print_board(board);
+    board->print();
     cbreak(); // wlacza czekanie
-}
-
-Snake *snake_ini(Coordinates boardSize) {
-    Snake *snake = new Snake();
-    snake->head = (Coordinates){rand() % boardSize.x, rand() % boardSize.y};
-    snake->body = deque<Coordinates>();
-    snake->direction = (Direction) (rand() % NUMBER_OF_DIRECTIONS);
-    return snake;
-};
-
-
-Food *food_ini(Coordinates boardSize){
-    Food *food = new Food();
-    food->foods= set<Coordinates>();
-    food->foods.insert((Coordinates){rand() % boardSize.x, rand() % boardSize.y});
-    return food;
 }
 
 
 int main() {
     srand(time(0));
-    Board board;
-    board.size = (Coordinates) {ROWS, COLUMNS};
-    board.snake = (*snake_ini(board.size));
-    board.food= *food_ini(board.size);
+    Board board(ROWS, COLUMNS);
     interface_ini(&board);
     read_move();
     endwin();
+
     // Wypisanie_planszy(&a);
     // Przekierowanie_ruchu(&a);
     // Zwalnianie_pamieci(&a);
