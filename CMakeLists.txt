@@ -13,11 +13,25 @@ set_property(GLOBAL PROPERTY RULE_MESSAGES OFF)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # Set compilation flags.
-set(CMAKE_C_FLAGS "-lncurses -Wall -Wextra -Wc++11-extensions")
+set(CMAKE_CXX_FLAGS "-lncurses -Wall -Wextra -Wc++11-extensions")
+
+set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Source files path.
 set(SOURCE_FILES
-    src/snake.cpp
+        src/game.cpp
+        src/Board.cpp
+        src/Board.h
+        src/Snake.cpp
+        src/Snake.h
+        src/Coordinates.cpp
+        src/Coordinates.h
+        src/Food.cpp
+        src/Food.h
+        src/Direction.cpp
+        src/Direction.h
     )
 
 # Wskazujemy plik wykonywalny.
