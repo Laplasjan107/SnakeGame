@@ -23,7 +23,7 @@ public:
         foods.insert(Coordinates(rand() % boardSize.x, rand() % boardSize.y));
     }
 
-    void print(Board *board);
+    void print(Board &board);
 
     bool isFood(Coordinates c) {
         return foods.find(c) != foods.end();

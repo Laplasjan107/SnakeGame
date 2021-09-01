@@ -21,7 +21,5 @@ void Board::print() {
     print_element( Coordinates(size.x, -1), '+');
     print_element( Coordinates(size.x, size.y), '+');
 
-    snake.print(this);
-    food.print(this);
-    refresh();
+
 }

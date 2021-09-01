@@ -21,7 +21,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Source files path.
 set(SOURCE_FILES
-        src/game.cpp
+        src/main.cpp
         src/Board.cpp
         src/Board.h
         src/Snake.cpp
@@ -32,6 +32,8 @@ set(SOURCE_FILES
         src/Food.h
         src/Direction.cpp
         src/Direction.h
+        src/Game.cpp
+        src/Game.h
     )
 
 # Wskazujemy plik wykonywalny.

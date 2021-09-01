@@ -17,20 +17,17 @@
 
 class Board {
 public:
-    Snake snake;
-    Food food;
     Coordinates size;
 
-    Board(int rows, int columns) :  snake(Coordinates(rows, columns)),
-                                   food(Coordinates(rows, columns)),size(rows, columns) {
+    Board(int rows, int columns) : size(rows, columns) {
     }
 
     //wyswietla cala plansze na poczatku gry
     //przyjmuje jako argument plansze
     void print();
 
-    bool isFood(Coordinates c) {
-        return food.isFood(c);
+    bool isWall(Coordinates c) {
+        return !(c.x >= 0 && c.x <= size.x && c.y >= 0 && c.y <= size.y);
     }
 
     //odpowiada za wyswietlanie każdego pojedynczego pola

@@ -8,14 +8,14 @@
 #include <deque>
 #include "Coordinates.h"
 #include "Direction.h"
+#include "Board.h"
+#include "Food.h"
 
 
 #define SNAKE_HEAD '@'
 #define SNAKE_BODY 'o'
 
 using namespace std;
-
-class Board;
 
 
 class Snake {
@@ -31,16 +31,20 @@ public:
     // Zakładam, że wielkość planszy to minimum 3.
     Snake(Coordinates boardSize, char left = 'a', char right = 'd');
 
-    void print(Board *board);
+    void print(Board &board);
 
     void turn(Direction dir) {
         direction = dir;
     }
 
-    void move(Board *board);
+    bool move(Board &board, Food& food);
 
-    void update_print(Board *board, Coordinates previousTail, Coordinates previousHead, bool hasEaten);
+    void update_print(Board &board, Coordinates previousTail, Coordinates previousHead, bool hasEaten);
 
+    //prints how much snake has eaten
+    void print_food_counter() {
+        mvprintw(0, 0, "%*d", 2, foodCounter);
+    }
 };
 
 #endif //SNAKEGAME_SNAKE_H

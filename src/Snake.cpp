@@ -5,38 +5,44 @@
 #include "Snake.h"
 #include "Board.h"
 
-void Snake::print(Board *board) {
-    board->print_element( head, SNAKE_HEAD);
+void Snake::print(Board &board) {
+    board.print_element( head, SNAKE_HEAD);
     for (auto el : body) {
-        board->print_element( el, SNAKE_BODY);
+        board.print_element( el, SNAKE_BODY);
     }
+    print_food_counter();
 }
 
-void Snake::move(Board *board) {
+bool Snake::move(Board &board, Food& food) {
     bool hasEaten = false;
 
     Coordinates previousHead = head;
     Coordinates previousTail;
     head = head.move_to_direction(direction);
+    if (board.isWall(head))
+        return false;
+
     body.push_front(previousHead);
     previousTail = body.back();
 
-    if (board->isFood(head)) {
+    if (food.isFood(head)) {
         foodCounter++;
         hasEaten = true;
+        print_food_counter();
     } else {
         body.pop_back();
     }
 
     update_print(board, previousTail, previousHead, hasEaten);
+    return true;
 }
 
-void Snake::update_print(Board *board, Coordinates previousTail, Coordinates previousHead, bool hasEaten) {
-    board->print_element( previousHead, SNAKE_BODY);
-    board->print_element( head, SNAKE_HEAD);
+void Snake::update_print(Board &board, Coordinates previousTail, Coordinates previousHead, bool hasEaten) {
+    board.print_element( previousHead, SNAKE_BODY);
+    board.print_element( head, SNAKE_HEAD);
 
     if (!hasEaten) {
-        board->print_element( previousTail, ' ');
+        board.print_element( previousTail, ' ');
     }
 }
 

@@ -6,8 +6,8 @@
 #include "Board.h"
 
 
-void Food::print(Board *board) {
+void Food::print(Board &board) {
     for (auto el: foods) {
-        board->print_element( el, FOOD);
+        board.print_element( el, FOOD);
     }
 }
