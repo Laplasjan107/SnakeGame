@@ -11,6 +11,8 @@
 #include "Coordinates.h"
 #include "Board.h"
 
+
+class Game;
 #define FOOD '*'
 
 using namespace std;
@@ -47,21 +49,14 @@ public:
      * @param c coordinates of the eaten food.
      * @param board
      */
-    void eaten(Coordinates c,Board &board){
-        foods.erase(c);
-        Coordinates newFood = generate_new(board.size);
-        foods.insert(newFood);
-        update_print(board,newFood);
-    }
+    void eaten(Game *game,Coordinates c,Board &board);
 
     /**
      * Updates the screen.
      * @param board
      * @param newFood
      */
-    void update_print(Board &board,  Coordinates newFood){
-        board.print_element(newFood,FOOD);
-    }
+    void update_print(Game *game,  Coordinates newFood);
 
     /**
      * Generates coordinates of new food.

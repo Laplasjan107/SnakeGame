@@ -3,7 +3,7 @@
 //
 
 #include "Snake.h"
-#include "Board.h"
+#include "Game.h"
 
 
 Snake::Snake(Coordinates boardSize, char left, char right) :
@@ -39,24 +39,24 @@ void Snake::print(Board &board) {
     print_food_counter();
 }
 
-bool Snake::move(Board &board, Food &food) {
+bool Snake::move(Game* game,Board &board) {
     bool hasEaten = false;
 
     Coordinates previousHead = head;
     Coordinates previousTail;
     head = head.move_to_direction(direction);
-    if (board.is_wall(head) || is_snake(head))
+    if (game->is_wall(head) || game->is_snake(head))
         return false;
 
     body.push_front(previousHead);
     tail.insert(previousHead);
     previousTail = body.back();
 
-    if (food.is_food(head)) {
+    if (game->is_food(head)) {
         foodCounter++;
         hasEaten = true;
         print_food_counter();
-        food.eaten(head, board);
+        game->food_eaten(head);
     } else {
         tail.erase(body.back());
         body.pop_back();

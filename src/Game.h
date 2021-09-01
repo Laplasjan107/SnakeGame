@@ -19,8 +19,8 @@
 #include "Direction.h"
 
 
-#define COLUMNS 30
-#define ROWS 30
+#define COLUMNS 15
+#define ROWS 15
 
 #define ENDGAMEKEY 'x'
 
@@ -93,6 +93,26 @@ public:
      */
     inline void print_level(){
         mvprintw(0, COLS-EL_WIDTH-1, "%*d", EL_WIDTH, level);
+    }
+
+    bool is_snake(Coordinates c){
+       return  snake.is_snake(c);
+    }
+
+    bool is_wall(Coordinates c){
+        return board.is_wall(c);
+    }
+
+    bool is_food(Coordinates c){
+        return food.is_food(c);
+    }
+
+    void print_element(Coordinates c, char k){
+        board.print_element(c,k);
+    }
+
+    void food_eaten(Coordinates c){
+        food.eaten(this,c,board);
     }
 
 };

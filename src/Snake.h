@@ -9,6 +9,7 @@
 #include <set>
 #include <stdlib.h>
 
+
 #include "Coordinates.h"
 #include "Direction.h"
 #include "Board.h"
@@ -46,7 +47,7 @@ public:
         direction = dir;
     }
 
-    bool move(Board &board, Food& food);
+    bool move(Game * game,Board &board);
 
     void update_print(Board &board, Coordinates previousTail, Coordinates previousHead, bool hasEaten);
 

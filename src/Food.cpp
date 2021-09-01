@@ -3,6 +3,7 @@
 //
 
 #include "Food.h"
+#include "Game.h"
 
 
 
@@ -10,4 +11,19 @@ void Food::print(Board &board) {
     for (auto el: foods) {
         board.print_element( el, FOOD);
     }
+}
+
+
+void Food::eaten(Game *game,Coordinates c,Board &board){
+    foods.erase(c);
+    Coordinates newFood = generate_new(board.size);
+    while(game->is_snake(newFood)){
+        newFood = generate_new(board.size);
+    }
+    foods.insert(newFood);
+    update_print(game,newFood);
+}
+
+void Food::update_print(Game *game,  Coordinates newFood){
+    game->print_element(newFood,FOOD);
 }
