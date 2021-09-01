@@ -28,11 +28,11 @@ class Game {
     Snake snake;
     Food food;
     bool endOfTheGame;
+    int level;
 
 public:
     Game() : board(ROWS, COLUMNS), snake(Coordinates(ROWS, COLUMNS)), food(Coordinates(ROWS, COLUMNS)),
-             endOfTheGame(false) {
-
+             endOfTheGame(false),level(1) {
     }
 
 
@@ -79,6 +79,12 @@ public:
         endwin();
     }
 
+    /**
+     * Prints the current level.
+     */
+    inline void print_level(){
+        mvprintw(0, COLS-EL_WIDTH, "%*d", EL_WIDTH, level);
+    }
 
 };
 

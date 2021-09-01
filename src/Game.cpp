@@ -10,6 +10,7 @@ void Game::play() {
         this_thread::sleep_for(std::chrono::milliseconds(300));
         change_direction();
         endOfTheGame = !snake.move(board, food);
+        print_level();
         refresh();
     }
     flash();
@@ -25,6 +26,7 @@ void Game::interface_ini() {
     board.print();
     snake.print(board);
     food.print(board);
+    print_level();
     refresh();
     cbreak(); // Turns on waiting
 }
