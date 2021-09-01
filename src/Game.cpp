@@ -9,12 +9,13 @@ void Game::play() {
     while (!endOfTheGame) {
         this_thread::sleep_for(std::chrono::milliseconds(300-level*5));
         change_direction();
-        endOfTheGame = !snake.move(board, food);
+        if (!snake.move(board, food))
+            endOfTheGame=true;
         update_level(snake.foodCounter);
         refresh();
     }
     flash();
-    this_thread::sleep_for(std::chrono::milliseconds(1000));
+    this_thread::sleep_for(std::chrono::milliseconds(1500));
 }
 
 

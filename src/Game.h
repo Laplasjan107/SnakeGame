@@ -19,8 +19,8 @@
 #include "Direction.h"
 
 
-#define COLUMNS 20
-#define ROWS 20
+#define COLUMNS 30
+#define ROWS 30
 
 class Game {
 
