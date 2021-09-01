@@ -6,6 +6,8 @@
 #define SNAKEGAME_SNAKE_H
 
 #include <deque>
+#include <set>
+
 #include "Coordinates.h"
 #include "Direction.h"
 #include "Board.h"
@@ -19,7 +21,8 @@ using namespace std;
 
 
 class Snake {
-
+private:
+    set<Coordinates> tail;
 public:
     Coordinates head;
     deque <Coordinates> body;
@@ -44,6 +47,10 @@ public:
     //prints how much snake has eaten
     void print_food_counter() {
         mvprintw(0, 0, "%*d", 2, foodCounter);
+    }
+
+    inline bool is_snake(Coordinates c) {
+        return tail.find(c) != tail.end();
     }
 };
 

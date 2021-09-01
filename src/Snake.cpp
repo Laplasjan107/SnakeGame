@@ -19,17 +19,20 @@ bool Snake::move(Board &board, Food& food) {
     Coordinates previousHead = head;
     Coordinates previousTail;
     head = head.move_to_direction(direction);
-    if (board.isWall(head))
+    if (board.is_wall(head) || is_snake(head))
         return false;
 
     body.push_front(previousHead);
+    tail.insert(previousHead);
     previousTail = body.back();
 
-    if (food.isFood(head)) {
+    if (food.is_food(head)) {
         foodCounter++;
         hasEaten = true;
         print_food_counter();
+        food.eaten(head,board);
     } else {
+        tail.erase(body.back());
         body.pop_back();
     }
 
@@ -49,7 +52,7 @@ void Snake::update_print(Board &board, Coordinates previousTail, Coordinates pre
 Snake::Snake(Coordinates boardSize, char left, char right ) :
         head(1 + rand() % (boardSize.x - 2),1 + rand() % (boardSize.y - 2)), foodCounter(0),left(left),
         right(right) {
-
+    tail = set<Coordinates>();
     head = Coordinates(rand() % boardSize.x, rand() % boardSize.y);
     body = deque<Coordinates>();
     direction = (Direction) (rand() % NUMBER_OF_DIRECTIONS);
@@ -69,4 +72,5 @@ Snake::Snake(Coordinates boardSize, char left, char right ) :
             break;
     }
     body.push_front(neck);
+    tail.insert(neck);
 }

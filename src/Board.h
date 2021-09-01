@@ -8,8 +8,6 @@
 #include <ncurses.h>
 
 #include "Coordinates.h"
-#include "Snake.h"
-#include "Food.h"
 #include "Direction.h"
 
 //Liczba znaków zajmowanych na ekranie przez jedno pole.
@@ -26,8 +24,8 @@ public:
     //przyjmuje jako argument plansze
     void print();
 
-    bool isWall(Coordinates c) {
-        return !(c.x >= 0 && c.x <= size.x && c.y >= 0 && c.y <= size.y);
+    bool is_wall(Coordinates c) {
+        return !(c.x >= 0 && c.x < size.x && c.y >= 0 && c.y < size.y);
     }
 
     //odpowiada za wyswietlanie każdego pojedynczego pola

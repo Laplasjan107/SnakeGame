@@ -29,36 +29,19 @@ public:
     Food food;
     bool endOfTheGame;
 
-    Game():board(ROWS,COLUMNS),snake(Coordinates(ROWS, COLUMNS)),food(Coordinates(ROWS, COLUMNS)),endOfTheGame(false){
+    Game() : board(ROWS, COLUMNS), snake(Coordinates(ROWS, COLUMNS)), food(Coordinates(ROWS, COLUMNS)),
+             endOfTheGame(false) {
 
     }
 
-    bool isFood(Coordinates c) {
-        return food.isFood(c);
-    }
 
-    //inicjuje interfejs TUI i wlacza wyswietlanie planszy na poczatku
-    void interface_ini() {
-        initscr();  //wlacza TUI
-        noecho();
-        curs_set(0);
-        nodelay(stdscr, TRUE);
-        board.print();
-        snake.print(board);
-        food.print(board);
-        refresh();
-        cbreak(); // wlacza czekanie
-    }
 
-    void play() {
-        while (!endOfTheGame) {
-            this_thread::sleep_for(std::chrono::seconds(1));
-            change_direction();
-            endOfTheGame = !snake.move(board,food);
-            refresh();
-        }
+    /**
+    * initiates TUI interface
+    */
+    void interface_ini();
 
-    }
+    void play();
 
     //Zczytuje ruch gracza i go zwraca
     inline char read_move() {
@@ -80,7 +63,7 @@ public:
         }
     }
 
-    void end(){
+    inline void end() {
         endwin();
     }
 
