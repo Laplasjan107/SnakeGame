@@ -79,11 +79,18 @@ public:
         endwin();
     }
 
+    void update_level(int eatenFood){
+        if (eatenFood>level*10) {
+            level++;
+            print_level();
+        }
+    }
+
     /**
      * Prints the current level.
      */
     inline void print_level(){
-        mvprintw(0, COLS-EL_WIDTH, "%*d", EL_WIDTH, level);
+        mvprintw(0, COLS-EL_WIDTH-1, "%*d", EL_WIDTH, level);
     }
 
 };
