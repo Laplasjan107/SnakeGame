@@ -47,9 +47,9 @@ public:
         direction = dir;
     }
 
-    bool move(Game * game,Board &board);
+    bool move(Game * game);
 
-    void update_print(Board &board, Coordinates previousTail, Coordinates previousHead, bool hasEaten);
+    void update_print(Game *game, Coordinates previousTail, Coordinates previousHead, bool hasEaten);
 
     //prints how much snake has eaten
     void print_food_counter() {

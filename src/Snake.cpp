@@ -39,7 +39,7 @@ void Snake::print(Board &board) {
     print_food_counter();
 }
 
-bool Snake::move(Game* game,Board &board) {
+bool Snake::move(Game* game) {
     bool hasEaten = false;
 
     Coordinates previousHead = head;
@@ -62,15 +62,15 @@ bool Snake::move(Game* game,Board &board) {
         body.pop_back();
     }
 
-    update_print(board, previousTail, previousHead, hasEaten);
+    update_print(game, previousTail, previousHead, hasEaten);
     return true;
 }
 
-void Snake::update_print(Board &board, Coordinates previousTail, Coordinates previousHead, bool hasEaten) {
-    board.print_element(previousHead, SNAKE_BODY);
-    board.print_element(head, SNAKE_HEAD);
+void Snake::update_print(Game *game, Coordinates previousTail, Coordinates previousHead, bool hasEaten) {
+    game->print_element(previousHead, SNAKE_BODY);
+    game->print_element(head, SNAKE_HEAD);
 
     if (!hasEaten) {
-        board.print_element(previousTail, ' ');
+        game->print_element(previousTail, ' ');
     }
 }
