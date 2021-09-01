@@ -22,6 +22,8 @@
 #define COLUMNS 30
 #define ROWS 30
 
+#define ENDGAMEKEY 'x'
+
 class Game {
 
     Board board;
@@ -67,7 +69,7 @@ public:
             return;
         } else if (mv == ERR) {
             return;
-        } else {
+        } else if (mv == ENDGAMEKEY) {
             endOfTheGame = true;
         }
     }
