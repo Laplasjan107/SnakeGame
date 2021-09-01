@@ -6,6 +6,7 @@
 #define SNAKEGAME_FOOD_H
 
 #include <set>
+#include <stdlib.h>
 
 #include "Coordinates.h"
 #include "Board.h"

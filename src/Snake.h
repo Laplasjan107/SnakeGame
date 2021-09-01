@@ -7,6 +7,7 @@
 
 #include <deque>
 #include <set>
+#include <stdlib.h>
 
 #include "Coordinates.h"
 #include "Direction.h"
