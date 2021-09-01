@@ -32,7 +32,12 @@ public:
     const char left;
     const char right;
 
-    // Zakładam, że wielkość planszy to minimum 3.
+    /**
+     * boardSize is at least 3
+     * @param boardSize
+     * @param left
+     * @param right
+     */
     Snake(Coordinates boardSize, char left = 'a', char right = 'd');
 
     void print(Board &board);

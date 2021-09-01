@@ -7,7 +7,7 @@
 
 void Game::play() {
     while (!endOfTheGame) {
-        this_thread::sleep_for(std::chrono::milliseconds(300));
+        this_thread::sleep_for(std::chrono::milliseconds(300-level*5));
         change_direction();
         endOfTheGame = !snake.move(board, food);
         update_level(snake.foodCounter);

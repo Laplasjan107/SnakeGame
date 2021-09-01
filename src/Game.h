@@ -80,7 +80,7 @@ public:
     }
 
     void update_level(int eatenFood){
-        if (eatenFood>level*10) {
+        if (eatenFood>level*5) {
             level++;
             print_level();
         }

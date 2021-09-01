@@ -13,7 +13,9 @@ set_property(GLOBAL PROPERTY RULE_MESSAGES OFF)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 # Set compilation flags.
-set(CMAKE_CXX_FLAGS "-lncurses -Wall -Wextra")
+set(CMAKE_CXX_FLAGS " -Wall -Wextra")
+
+link_libraries(ncurses)
 
 set(CMAKE_CXX_STANDARD 11)
 
