@@ -20,17 +20,25 @@ public:
     Board(int rows, int columns) : size(rows, columns) {
     }
 
-    //wyswietla cala plansze na poczatku gry
-    //przyjmuje jako argument plansze
+   /**
+    * Prints the board.
+    */
     void print();
 
+    /**
+     * Checks if c contains wall.
+     * @param Coordinates c
+     * @return c==wall
+     */
     bool is_wall(Coordinates c) {
         return !(c.x >= 0 && c.x < size.x && c.y >= 0 && c.y < size.y);
     }
 
-    //odpowiada za wyswietlanie każdego pojedynczego pola
-//przyjmuje plansze oraz kolumne i wiersz w ktorych znajduje sie pole ktore nalezy zmienic
-//aktualizuje rowniez licznik diamentow
+    /**
+     * Prints k on the board in place of coordinates c.
+     * @param Coordinates c
+     * @param char k
+     */
     void print_element( Coordinates c, char k) {
         int y = (((LINES) - (size.y)) / 2) + c.y;
         int x = (((COLS) - (EL_WIDTH) * (size.x)) / 2) + EL_WIDTH * c.x;

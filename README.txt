@@ -1,2 +1,2 @@
 TODO:
-1) Check if new food coodrinates is free.
+1) Check if new food coordinates is free.

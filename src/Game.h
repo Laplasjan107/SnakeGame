@@ -23,12 +23,13 @@
 #define ROWS 20
 
 class Game {
-public:
+
     Board board;
     Snake snake;
     Food food;
     bool endOfTheGame;
 
+public:
     Game() : board(ROWS, COLUMNS), snake(Coordinates(ROWS, COLUMNS)), food(Coordinates(ROWS, COLUMNS)),
              endOfTheGame(false) {
 
@@ -37,17 +38,25 @@ public:
 
 
     /**
-    * initiates TUI interface
+    * Initiates TUI interface.
     */
     void interface_ini();
 
+    /**
+     * Conducts the game, till the player looses.
+     */
     void play();
 
-    //Zczytuje ruch gracza i go zwraca
+    /**
+     * Reads players move.
+     * @return pressed key
+     */
     inline char read_move() {
         return getch();
     }
-
+    /**
+     * Forwards the move to the snake.
+     */
     void change_direction() {
         char mv = read_move();
         if (mv == snake.left) {
@@ -63,6 +72,9 @@ public:
         }
     }
 
+    /**
+     * Ends the game
+     */
     inline void end() {
         endwin();
     }

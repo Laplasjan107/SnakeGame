@@ -19,9 +19,9 @@ void Game::play() {
 
 void Game::interface_ini() {
     initscr();  // Turns on TUI
-    noecho();
+    noecho();  // Read keys won't be echoed
     curs_set(0);
-    nodelay(stdscr, TRUE);
+    nodelay(stdscr, TRUE); //function getchar() won't wait for a press of a key
     board.print();
     snake.print(board);
     food.print(board);

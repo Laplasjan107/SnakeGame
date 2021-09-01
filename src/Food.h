@@ -15,7 +15,7 @@
 using namespace std;
 
 /**
- * Class containing all the food on the board.
+ * Class of all the food on the board.
  */
 class Food {
 private:
