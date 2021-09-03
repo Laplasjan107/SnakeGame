@@ -9,8 +9,8 @@
 
 class Coordinates {
 public:
-    int x; // row
-    int y; // column
+    int x; ///< number of a row
+    int y; ///< number of a column
 
     Coordinates() : x(0), y(0) {}
 
@@ -21,6 +21,11 @@ public:
         return x < compared.x;
     }
 
+    /**
+     * Returns the new coordinations after move in the direction dir
+     * @param dir : Direction
+     * @return new Coordinations
+     */
     Coordinates move_to_direction(Direction dir) {
         switch (dir) {
             case Up:

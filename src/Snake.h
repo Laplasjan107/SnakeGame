@@ -25,13 +25,14 @@ using namespace std;
 class Snake {
 private:
     set<Coordinates> tail;
-public:
     Coordinates head;
     deque <Coordinates> body;
-    Direction direction;
-    int foodCounter;
     const char left;
     const char right;
+public:
+    Direction direction;
+    int foodCounter;
+
 
     /**
      * boardSize is at least 3
@@ -41,6 +42,10 @@ public:
      */
     Snake(Coordinates boardSize, char left = 'a', char right = 'd');
 
+    /**
+     *
+     * @param board
+     */
     void print(Board &board);
 
     void turn(Direction dir) {
@@ -58,6 +63,13 @@ public:
 
     inline bool is_snake(Coordinates c) {
         return tail.find(c) != tail.end();
+    }
+
+    char getterLeft(){
+        return left;
+    }
+    char getterRight(){
+        return right;
     }
 };
 

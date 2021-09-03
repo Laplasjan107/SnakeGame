@@ -14,8 +14,8 @@ void Food::print(Board &board) {
 }
 
 
-void Food::eaten(Game *game,Coordinates c,Board &board){
-    foods.erase(c);
+void Food::eaten(Game *game, Coordinates eatenFood, Board &board){
+    foods.erase(eatenFood);
     Coordinates newFood = generate_new(board.size);
     while(game->is_snake(newFood)){
         newFood = generate_new(board.size);

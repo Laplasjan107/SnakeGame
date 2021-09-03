@@ -19,8 +19,8 @@
 #include "Direction.h"
 
 
-#define COLUMNS 15
-#define ROWS 15
+#define COLUMNS 20
+#define ROWS 20
 
 #define ENDGAMEKEY 'x'
 
@@ -56,15 +56,16 @@ public:
     inline char read_move() {
         return getch();
     }
+
     /**
      * Forwards the move to the snake.
      */
     void change_direction() {
         char mv = read_move();
-        if (mv == snake.left) {
+        if (mv == snake.getterLeft()) {
             snake.turn(turn_direction_left(snake.direction));
             return;
-        } else if (mv == snake.right) {
+        } else if (mv == snake.getterRight()) {
             snake.turn(turn_direction_right(snake.direction));
             return;
         } else if (mv == ERR) {
@@ -80,12 +81,20 @@ public:
     inline void end() {
         endwin();
     }
-
+    /**
+     * Updates level counter if enough food was eaten
+     * @param eatenFood
+     */
     void update_level(int eatenFood){
         if (eatenFood>level*5) {
             level++;
             print_level();
         }
+    }
+
+
+    void winning() {
+        flash();
     }
 
     /**

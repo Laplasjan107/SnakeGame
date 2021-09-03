@@ -7,8 +7,8 @@
 
 
 Snake::Snake(Coordinates boardSize, char left, char right) :
-        head(1 + rand() % (boardSize.x - 2), 1 + rand() % (boardSize.y - 2)), foodCounter(0), left(left),
-        right(right) {
+        head(1 + rand() % (boardSize.x - 2), 1 + rand() % (boardSize.y - 2)), left(left),
+        right(right), foodCounter(0) {
     tail = set<Coordinates>();
     body = deque<Coordinates>();
     direction = (Direction) (rand() % NUMBER_OF_DIRECTIONS);

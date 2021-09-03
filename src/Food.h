@@ -36,7 +36,7 @@ public:
     void print(Board &board);
 
     /**
-     * Checks if there is food under coordinates c.
+     * Checks if there is food on coordinates c.
      * @param c
      * @return
      */
@@ -45,15 +45,16 @@ public:
     }
 
     /**
-     * Updates food after eating one.
-     * @param c coordinates of the eaten food.
+     * Removes the eaten food and creates new one .
+     * @param game
+     * @param eatenFood coordinates of the eaten food.
      * @param board
      */
-    void eaten(Game *game,Coordinates c,Board &board);
+    void eaten(Game *game, Coordinates eatenFood, Board &board);
 
     /**
-     * Updates the screen.
-     * @param board
+     * Adds food on the newFood Coordinates.
+     * @param game
      * @param newFood
      */
     void update_print(Game *game,  Coordinates newFood);

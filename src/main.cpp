@@ -8,10 +8,6 @@
 
 using namespace std;
 
-//rozblyskuje ekran po wygranej
-void winning() {
-    flash();
-}
 
 
 

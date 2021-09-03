@@ -9,5 +9,8 @@ and stores all needed data.
 
 
 TODO:
-1) Check if new food coordinates is free.
+1) Check if new food coordinates is free. DONE
+2) Pause the Game.
+3) Colour the Snake.
+4) Some kind of a menu?
 
